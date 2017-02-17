@@ -1,3 +1,55 @@
 = EtherpadPlugin
 
-This project rocks and uses MIT-LICENSE.
+Etherpad Signature Authorization Plugin
+===================================================
+
+Description
+===================================================
+
+  This tool's expressed purpose is to
+  enable secure sign-in and signature verification
+  from this Canvas LMS with Etherpad collaborations tool.
+
+===================================================
+Installation
+===================================================
+
+    sysadmin@appserver:~$ cd /path/to/canvas/gems/plugins
+    sysadmin@appserver:/path/to/canvas/gems/plugins$ git clone https://github.com/atomicjolt/etherpad_canvas.git
+
+  Add RSA Private Key through Canvas settings and then
+  create a public_key.pem file that corresponds with
+  the private key to add to the Etherpad Plugin for
+  verification.
+
+===================================================
+Usage
+===================================================
+
+  This tool is set up only to work with an instance
+  of Etherpad that you can add Plugins to. It is set up
+  to create a signed url that the accompanying Etherpad
+  plugin (ep_signatureauth) will verify.
+
+===================================================
+Contributing
+===================================================
+
+  1. Fork it!
+  2. Create your feature branch: git checkout -b my-new-feature
+  3. Commit your changes: git commit -am 'Add some feature'
+  4. Push to the branch: git push origin my-new-feature
+  5. Submit a pull request :D
+
+===================================================
+History
+===================================================
+
+===================================================
+Credits
+===================================================
+
+===================================================
+License
+===================================================
+  AGPL-3.0 License

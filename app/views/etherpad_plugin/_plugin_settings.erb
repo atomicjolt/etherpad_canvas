@@ -1,0 +1,22 @@
+<%= fields_for :settings, OpenObject.new(settings) do |f| %>
+  <table style="width: 500px;" class="formtable">
+    <tr>
+      <td colspan="2">
+        <p><%= t(:description, <<-TEXT)
+EtherPad is now an open source project.  There are a number of public
+hosted instances of EtherPad that we won't be using. You'll be implementing
+your own which requires a private key for validation.
+TEXT
+        %></p>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.blabel :title, en: "Title" %></td>
+      <td><%= f.text_field :title %></td>
+    </tr>
+    <tr>
+      <td><%= f.blabel :key, en: "Key" %></td>
+      <td><%= f.text_area :key %></td>
+    </tr>
+  </table>
+<% end %>
