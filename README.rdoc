@@ -1,4 +1,4 @@
-= EtherpadPlugin
+= EtherpadCanvas
 
 Etherpad Signature Authorization Plugin
 ===================================================

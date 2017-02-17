@@ -1,5 +1,5 @@
 require_dependency "app/controllers/collaborations_controller"
-require "etherpad_plugin/etherpad_collaboration"
+require "etherpad_canvas/etherpad_collaboration"
 
 class CollaborationsController
   alias show_without_etherpad show

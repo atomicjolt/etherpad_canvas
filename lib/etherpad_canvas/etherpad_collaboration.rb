@@ -5,7 +5,7 @@ require "base64"
 class EtherpadCollaboration
 
   def self.sign_url(user, collaboration)
-    plugin = PluginSetting.find_by(name: "etherpad_plugin")
+    plugin = PluginSetting.find_by(name: "etherpad_canvas")
     if !plugin.disabled
       key_pem = plugin.settings[:key]
       key = OpenSSL::PKey::RSA.new(key_pem)
