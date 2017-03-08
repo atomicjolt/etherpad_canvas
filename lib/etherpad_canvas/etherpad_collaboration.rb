@@ -42,7 +42,7 @@ class EtherpadCollaboration
     end
   end
 
-  def signing(key, query)
+  def self.signing(key, query)
     digest = OpenSSL::Digest::SHA256.new
     signature = key.sign digest, query
     encoded_signature = CGI.escape(Base64.strict_encode64(signature))
