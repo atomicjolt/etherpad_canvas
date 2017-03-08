@@ -19,6 +19,13 @@ require "base64"
 
 class EtherpadCollaboration
 
+  # canvas doesn't include the /p/ portion of the URL
+  # I'm assuming because they normally integrate with services that wrap around
+  # etherpad
+  def initialize_document
+    self.url ||= "http://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
+  end
+
   def self.sign_url(user, collaboration)
     plugin = PluginSetting.find_by(name: "etherpad_canvas")
     return collaboration.url if plugin.disabled
