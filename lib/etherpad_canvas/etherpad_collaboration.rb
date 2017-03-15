@@ -22,7 +22,7 @@ class EtherpadCollaboration
   def self.sign_url(user, collaboration)
     plugin = PluginSetting.find_by(name: "etherpad_canvas")
     etherpad_plugin = PluginSetting.find_by(name: "etherpad")
-    domain = etherpad_plugin.split('/')
+    domain = etherpad_plugin.split("/")
 
     if !plugin.disabled
       key = plugin.settings[:key]
