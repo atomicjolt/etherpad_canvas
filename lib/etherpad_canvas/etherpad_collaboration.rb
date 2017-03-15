@@ -21,14 +21,17 @@ class EtherpadCollaboration
 
   def self.sign_url(user, collaboration)
     plugin = PluginSetting.find_by(name: "etherpad_canvas")
+    etherpad_plugin = PluginSetting.find_by(name: "etherpad")
+    domain = etherpad_plugin.split('/')
+
     if !plugin.disabled
       key = plugin.settings[:key]
 
       url = generate_url user, collaboration
 
-      url_sans_http = url.split('9001')[1]
+      url_sans_http = url.split(domain)[0]
 
-      digest = OpenSSL::Digest.new('sha1')
+      digest = OpenSSL::Digest.new("sha1")
 
       hmac = OpenSSL::HMAC.hexdigest(digest, key, url_sans_http)
 
@@ -36,7 +39,7 @@ class EtherpadCollaboration
     end
   end
 
-  def self.generate_url user, collaboration
+  def self.generate_url(user, collaboration)
     timestamp = (Time.now.to_f * 1000).to_i
     query = {
       timestamp: timestamp,
