@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    etherpad_canvas (1.0.3)
+    etherpad_canvas (1.1.0)
       rails (~> 4.2.7.1)
 
 GEM
