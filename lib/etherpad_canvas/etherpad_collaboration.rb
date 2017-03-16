@@ -28,31 +28,33 @@ class EtherpadCollaboration
 
   def self.sign_url(user, collaboration)
     plugin = PluginSetting.find_by(name: "etherpad_canvas")
-    return collaboration.url if plugin.disabled
+    etherpad_plugin = PluginSetting.find_by(name: "etherpad")
 
-    key_pem = plugin.settings[:key]
-    key = OpenSSL::PKey::RSA.new(key_pem)
+    return collaboration.url if etherpad_plugin.disabled
+
+    domain = etherpad_plugin.split("/")
+
+    key = plugin.settings[:key]
+
+    url = generate_url user, collaboration
+
+    url_sans_http = url.split(domain)[0]
+
+    digest = OpenSSL::Digest.new("sha1")
+
+    hmac = OpenSSL::HMAC.hexdigest(digest, key, url_sans_http)
+
+    "#{url}&signature=#{hmac}"
+  end
+
+  def self.generate_url(user, collaboration)
     timestamp = (Time.now.to_f * 1000).to_i
     query = {
       timestamp: timestamp,
       user_id: user.id,
       username: user.name,
     }.to_query
-    if collaboration.url.include?("?")
-      url = collaboration.url.split("?")
-      url[1] = signing(key, query)
-      collaboration.url = url.join
-    else
-      collaboration.url += signing(key, query)
-    end
 
-    collaboration.url
-  end
-
-  def self.signing(key, query)
-    digest = OpenSSL::Digest::SHA256.new
-    signature = key.sign digest, query
-    encoded_signature = CGI.escape(Base64.strict_encode64(signature))
-    "?#{query}&signature=#{encoded_signature}"
+    "#{collaboration.url}?#{query}"
   end
 end
