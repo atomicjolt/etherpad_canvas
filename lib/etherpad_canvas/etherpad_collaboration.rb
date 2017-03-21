@@ -22,14 +22,14 @@ class EtherpadCollaboration
   def self.sign_url(user, collaboration)
     plugin = PluginSetting.find_by(name: "etherpad_canvas")
     etherpad_plugin = PluginSetting.find_by(name: "etherpad")
-    domain = etherpad_plugin.split("/")
+    domain = etherpad_plugin.settings['domain'].split("/")[0]
 
     if !plugin.disabled
       key = plugin.settings[:key]
 
       url = generate_url user, collaboration
 
-      url_sans_http = url.split(domain)[0]
+      url_sans_http = url.split(domain)[1]
 
       digest = OpenSSL::Digest.new("sha1")
 
