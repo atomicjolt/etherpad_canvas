@@ -19,6 +19,10 @@ require "base64"
 
 class EtherpadCollaboration
 
+  def initialize_document
+    self.url ||= "http://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
+  end
+
   def self.sign_url(user, collaboration)
     plugin = PluginSetting.find_by(name: "etherpad_canvas")
     etherpad_plugin = PluginSetting.find_by(name: "etherpad")
