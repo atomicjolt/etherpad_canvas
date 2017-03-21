@@ -19,24 +19,32 @@ require "base64"
 
 class EtherpadCollaboration
 
+  # canvas doesn't include the /p/ portion of the URL
+  # I'm assuming because they normally integrate with services that wrap around
+  # etherpad
+  def initialize_document
+    self.url ||= "http://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
+  end
+
   def self.sign_url(user, collaboration)
     plugin = PluginSetting.find_by(name: "etherpad_canvas")
     etherpad_plugin = PluginSetting.find_by(name: "etherpad")
+
+    return collaboration.url if etherpad_plugin.disabled
+
     domain = etherpad_plugin.split("/")
 
-    if !plugin.disabled
-      key = plugin.settings[:key]
+    key = plugin.settings[:key]
 
-      url = generate_url user, collaboration
+    url = generate_url user, collaboration
 
-      url_sans_http = url.split(domain)[0]
+    url_sans_http = url.split(domain)[0]
 
-      digest = OpenSSL::Digest.new("sha1")
+    digest = OpenSSL::Digest.new("sha1")
 
-      hmac = OpenSSL::HMAC.hexdigest(digest, key, url_sans_http)
+    hmac = OpenSSL::HMAC.hexdigest(digest, key, url_sans_http)
 
-      "#{url}&signature=#{hmac}"
-    end
+    "#{url}&signature=#{hmac}"
   end
 
   def self.generate_url(user, collaboration)
