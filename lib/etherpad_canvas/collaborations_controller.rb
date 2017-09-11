@@ -48,7 +48,6 @@ class CollaborationsController
       respond_to do |format|
         if @collaboration.save
           Lti::ContentItemUtil.new(content_item).success_callback if content_item
-          # After saved, update the members
           @collaboration.update_members(users, group_ids)
           format.html { redirect_to EtherpadCollaboration.sign_url(@current_user, @collaboration) }
           format.json { render :json => @collaboration.as_json(:methods => [:collaborator_ids], :permissions => {:user => @current_user, :session => session}) }
