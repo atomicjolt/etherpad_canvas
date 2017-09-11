@@ -17,7 +17,7 @@ Installation
     sysadmin@appserver:~$ cd /path/to/canvas/gems/plugins
     sysadmin@appserver:/path/to/canvas/gems/plugins$ git clone https://github.com/atomicjolt/etherpad_canvas.git
 
-  Run rake:secret and add the generated secret through 
+  Run rake secret and add the generated secret through 
   Canvas settings and save that secret for utilization 
   with the Etherpad Plugin for verification.
 
