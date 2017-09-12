@@ -50,9 +50,12 @@ class CollaborationsController
           Lti::ContentItemUtil.new(content_item).success_callback if content_item
           @collaboration.update_members(users, group_ids)
           format.html { redirect_to EtherpadCollaboration.sign_url(@current_user, @collaboration) }
-          format.json { render json: @collaboration.as_json(
-            methods: [:collaborator_ids], permissions: { user: @current_user, session: session }
-          ) }
+          format.json {
+            render json: @collaboration.as_json(methods: [:collaborator_ids], permissions: {
+              user: @current_user,
+              session: session,
+            })
+          }
         else
           Lti::ContentItemUtil.new(content_item).failure_callback if content_item
           flash[:error] = t "errors.create_failed", "Collaboration creation failed"
