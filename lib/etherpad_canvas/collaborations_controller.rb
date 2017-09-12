@@ -51,16 +51,18 @@ class CollaborationsController
           @collaboration.update_members(users, group_ids)
           format.html { redirect_to EtherpadCollaboration.sign_url(@current_user, @collaboration) }
           format.json {
-            render json: @collaboration.as_json(methods: [:collaborator_ids], permissions: {
-              user: @current_user,
-              session: session,
-            })
+            render json: @collaboration.as_json(
+              methods: [:collaborator_ids], permissions: {
+                user: @current_user,
+                session: session,
+              },
+            )
           }
         else
           Lti::ContentItemUtil.new(content_item).failure_callback if content_item
           flash[:error] = t "errors.create_failed", "Collaboration creation failed"
           format.html { redirect_to named_context_url(@context, :context_collaborations_url) }
-          format.json { render :json => @collaboration.errors, :status => :bad_request }
+          format.json { render json: @collaboration.errors, status: :bad_request }
         end
       end
     else
