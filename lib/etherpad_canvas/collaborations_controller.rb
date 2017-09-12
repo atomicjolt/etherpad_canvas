@@ -30,12 +30,12 @@ class CollaborationsController
   end
 
   def create
-    content_item = params['contentItems'] ? JSON.parse(params['contentItems']).first : nil
+    content_item = params["contentItems"] ? JSON.parse(params["contentItems"]).first : nil
     if content_item
       @collaboration = collaboration_from_content_item(content_item)
       users, group_ids = content_item_visibility(content_item)
     else
-      users = User.where(:id => Array(params[:user])).to_a
+      users = User.where(id: Array(params[:user])).to_a
       group_ids = Array(params[:group])
       collaboration_params = params.require(:collaboration).permit(:title, :description, :url)
       collaboration_params[:user] = @current_user
@@ -50,10 +50,12 @@ class CollaborationsController
           Lti::ContentItemUtil.new(content_item).success_callback if content_item
           @collaboration.update_members(users, group_ids)
           format.html { redirect_to EtherpadCollaboration.sign_url(@current_user, @collaboration) }
-          format.json { render :json => @collaboration.as_json(:methods => [:collaborator_ids], :permissions => {:user => @current_user, :session => session}) }
+          format.json { render json: @collaboration.as_json(
+            methods: [:collaborator_ids], permissions: { user: @current_user, session: session }
+          ) }
         else
           Lti::ContentItemUtil.new(content_item).failure_callback if content_item
-          flash[:error] = t 'errors.create_failed', "Collaboration creation failed"
+          flash[:error] = t "errors.create_failed", "Collaboration creation failed"
           format.html { redirect_to named_context_url(@context, :context_collaborations_url) }
           format.json { render :json => @collaboration.errors, :status => :bad_request }
         end
