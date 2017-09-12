@@ -55,7 +55,7 @@ class CollaborationsController
               methods: [:collaborator_ids], permissions: {
                 user: @current_user,
                 session: session,
-              },
+              }
             )
           }
         else
