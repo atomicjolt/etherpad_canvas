@@ -14,12 +14,23 @@ Description
 Installation
 ===================================================
 
+  First, set up Etherpad in your Canvas instance by:
+
+    Going to 'Plugins' under the settings for your account
+       and enable the Etherpad plugin
+       >> Make sure to have the domain for your Etherpad instance
+
+  Then change into the plugins folder and clone the etherpad_canvas:
+
     sysadmin@appserver:~$ cd /path/to/canvas/gems/plugins
     sysadmin@appserver:/path/to/canvas/gems/plugins$ git clone https://github.com/atomicjolt/etherpad_canvas.git
 
-  Run rake:secret and add the generated secret through 
-  Canvas settings and save that secret for utilization 
-  with the Etherpad Plugin for verification.
+  Run 'bundle'
+
+  Run 'rake secret' and add the generated secret through 
+  Canvas plugin settings for 'Etherpad Security' and save
+  that secret for utilization with the Etherpad Plugin
+  for verification.
 
 ===================================================
 Usage
