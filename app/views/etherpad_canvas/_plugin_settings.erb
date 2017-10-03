@@ -20,15 +20,15 @@ TEXT
     </tr>
     <tr>
       <td colspan="2">
-        <p><%= t(:secure_desc, <<-TEXT)
-        Select this box if your instance of Etherpad requires https
+        <p><%= t(:insecure_desc, <<-TEXT)
+        Select this box if your instance of Etherpad requires http instead of https
         TEXT
         %></p>
       </td>
     </tr>
     <tr>
-      <td><%= f.blabel :secure, en: "Secure" %></td>
-      <td><%= f.check_box :secure %></td>
+      <td><%= f.blabel :insecure, en: "Insecure" %></td>
+      <td><%= f.check_box :insecure %></td>
     </tr>
   </table>
 <% end %>

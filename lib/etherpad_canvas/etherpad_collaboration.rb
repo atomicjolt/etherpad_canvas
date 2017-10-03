@@ -20,10 +20,10 @@ require "base64"
 class EtherpadCollaboration
 
   def initialize_document
-    if PluginSetting.find_by(name: "etherpad_canvas").settings[:secure] == "1"
-      self.url ||= "https://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
+    if PluginSetting.find_by(name: "etherpad_canvas").settings[:insecure] == "1"
+      self.url ||= "http://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
     end
-    self.url ||= "http://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
+    self.url ||= "https://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
   end
 
   def self.sign_url(user, collaboration)
