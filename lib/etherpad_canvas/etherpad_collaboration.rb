@@ -20,9 +20,9 @@ require "base64"
 class EtherpadCollaboration
 
   def initialize_document
-    secure = "https"
+    scheme = "https"
     if PluginSetting.find_by(name: "etherpad_canvas").settings[:insecure] == "1"
-      secure= "http"
+      scheme = "http"
     end
     self.url ||= "#{secure}://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
   end
