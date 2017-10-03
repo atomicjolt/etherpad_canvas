@@ -18,5 +18,17 @@ TEXT
       <td><%= f.blabel :key, en: "Key" %></td>
       <td><%= f.text_area :key %></td>
     </tr>
+    <tr>
+      <td colspan="2">
+        <p><%= t(:secure_desc, <<-TEXT)
+        Select this box if your instance of Etherpad requires https
+        TEXT
+        %></p>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.blabel :secure, en: "Secure" %></td>
+      <td><%= f.check_box :secure %></td>
+    </tr>
   </table>
 <% end %>
