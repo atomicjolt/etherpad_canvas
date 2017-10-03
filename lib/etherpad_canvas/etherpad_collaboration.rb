@@ -32,13 +32,10 @@ class EtherpadCollaboration
     domain = etherpad_plugin.settings["domain"].split("/")[0]
 
     if !plugin.disabled
-      secure = plugin.settings[:secure]
       key = plugin.settings[:key]
 
       url = generate_url user, collaboration
-      if secure == "1"
-        url = "https://#{domain}#{url.split(domain)[1]}"
-      end
+
       url_sans_http = url.split(domain)[1]
 
       digest = OpenSSL::Digest.new("sha1")
