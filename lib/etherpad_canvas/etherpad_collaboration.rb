@@ -24,7 +24,7 @@ class EtherpadCollaboration
     if PluginSetting.find_by(name: "etherpad_canvas").settings[:insecure] == "1"
       scheme = "http"
     end
-    self.url ||= "#{secure}://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
+    self.url ||= "#{scheme}://#{EtherpadCollaboration.config[:domain]}/p/i-#{uuid}"
   end
 
   def self.sign_url(user, collaboration)
