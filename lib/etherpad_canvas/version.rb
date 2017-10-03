@@ -14,5 +14,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module EtherpadCanvas
-  VERSION = "1.1.2".freeze
+  VERSION = "1.1.3".freeze
 end
