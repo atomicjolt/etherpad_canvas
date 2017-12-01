@@ -39,7 +39,7 @@ class CollaborationsController
       group_ids = Array(params[:group])
       collaboration_params = params.require(:collaboration).permit(:title, :description, :url)
       collaboration_params[:user] = @current_user
-      @collaboration = Collaboration.typed_collaboration_instance(params[:collaboration].delete(:collaboration_type))
+      @collaboration = Collaboration.typed_collaboration_instance(params[:collaboration][:collaboration_type])
       collaboration_params.delete(:url) unless @collaboration.is_a?(ExternalToolCollaboration)
       @collaboration.attributes = collaboration_params
     end
