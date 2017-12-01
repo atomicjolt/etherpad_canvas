@@ -30,6 +30,10 @@ class CollaborationsController
   end
 
   def create
+    # This code was taken fro the original canvas controller in an effort to get around
+    # the limitations of Rails' version 5.0 to escape a redirect. The only changes that have
+    # been made from the original code are on lines 46 where a .delete was removed from between the 
+    # params[:collaboration][:collaboration_type] and line 56
     content_item = params["contentItems"] ? JSON.parse(params["contentItems"]).first : nil
     if content_item
       @collaboration = collaboration_from_content_item(content_item)
@@ -39,7 +43,7 @@ class CollaborationsController
       group_ids = Array(params[:group])
       collaboration_params = params.require(:collaboration).permit(:title, :description, :url)
       collaboration_params[:user] = @current_user
-      @collaboration = Collaboration.typed_collaboration_instance(params[:collaboration].delete(:collaboration_type))
+      @collaboration = Collaboration.typed_collaboration_instance(params[:collaboration][:collaboration_type])
       collaboration_params.delete(:url) unless @collaboration.is_a?(ExternalToolCollaboration)
       @collaboration.attributes = collaboration_params
     end
