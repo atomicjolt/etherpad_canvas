@@ -24,7 +24,7 @@ module EtherpadCanvas
         author: "Atomic Jolt",
         author_website: "http://www.atomicjolt.com/",
         description: -> { t(:description, "Enable secure sign-in with Etherpad collaborations tool") },
-        version: EtherpadCanvas::VERSION,
+        version: EtherpadCanvas::Version,
         settings_partial: "etherpad_canvas/plugin_settings",
       )
       require "etherpad_canvas/collaborations_controller"

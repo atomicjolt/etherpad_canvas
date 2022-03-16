@@ -6,7 +6,7 @@ require "etherpad_canvas/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "etherpad_canvas"
-  s.version     = EtherpadCanvas::VERSION
+  s.version     = EtherpadCanvas::Version
   s.authors     = ["Eric Durr"]
   s.email       = ["ericdurr@atomicjolt.com"]
   s.homepage    = "http://atomicjolt.com"
